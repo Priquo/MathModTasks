@@ -35,21 +35,6 @@ namespace MathModTasks
                     }                    
                 }                
             }
-            for (int i = 0; i < whogive.Length; i++)
-            {
-                Console.Write(whogive[i] + "\t");
-            }
-            for (int i = 0; i < whogive.Length; i++)
-            {
-                Console.Write(whoget[i] + "\t");
-            }
-            Console.WriteLine();
-            for (int i = 0; i < n; i++)
-            {
-                for (int j = 0; j < m; j++)
-                    Console.Write(mainData[i, j] + "\t");
-                Console.WriteLine();
-            }
         }
     }
 }
