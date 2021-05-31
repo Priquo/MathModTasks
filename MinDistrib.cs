@@ -8,11 +8,15 @@ namespace MathModTasks
 {
     class MinDistrib
     {
-        int[] whoGive;
-        int[] whoGet;
+        int[] whoGive, whoGet;
         int[,] mainData;
-        int m;
-        int n;
+        int m, n, count;
+        public int[,] distrMatric;
+        public int CountNotNullElement
+        {
+            get { return count; }
+            set { count = value; }
+        }
         public MinDistrib(int[,] mainData, int[] whoGive, int[] whoGet, int m, int n)
         {
             this.mainData = mainData;
@@ -21,9 +25,9 @@ namespace MathModTasks
             this.m = m;
             this.n = n;
         }
-        public int[,] MinDistribute()
+        public void MinDistribute()
         {
-            int[,] distrMatric = new int[n,m];
+            distrMatric = new int[n, m];
             int[] min = FindMin();
             int i = 0, j = 0;
             while (min[0] != 0)
@@ -39,6 +43,7 @@ namespace MathModTasks
                         whoGive[min[1]] -= distrMatric[min[1], min[2]];
                         whoGet[min[2]] -= distrMatric[min[1], min[2]];
                         min = FindMin();
+                        CountNotNullElement++;
                     }
                 }
                 catch
@@ -46,7 +51,6 @@ namespace MathModTasks
 
                 }
             }
-            return distrMatric;
         }
         public int[] FindMin()
         {
