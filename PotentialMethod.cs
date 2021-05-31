@@ -11,12 +11,14 @@ namespace MathModTasks
     {
         int[] whogive;
         int[] whoget;
-        int[,] mainData;
+        int[,] mainData;        
+        int n;
+        int m;
         public void DataReaderConverter(string path)
         {
             List<string[]> newdata = DataWorkerCSV.ReadCSV(path);
-            int m = newdata.Count - 1;
-            int n = newdata.First().Length - 1;
+            m = newdata.Count-1;
+            n = newdata.First().Length - 1;
             whogive = new int[m];
             whoget = new int[n];
             mainData = new int[n, m];
@@ -35,6 +37,15 @@ namespace MathModTasks
                     }                    
                 }                
             }
+            //MinDistrib md = new MinDistrib(mainData, whogive, whoget, m, n);
+            //int[,] mind = md.MinDistribute();
+            //for(int i = 0; i < n; i++)
+            //{
+            //    for (int j = 0; j < m; j++)
+            //        Console.Write(mind[i, j] + "\t");
+            //    Console.WriteLine();
+            //}
+                
         }
     }
 }
