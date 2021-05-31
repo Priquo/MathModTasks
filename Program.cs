@@ -10,6 +10,9 @@ namespace MathModTasks
     {
         static void Main(string[] args)
         {
+            PotentialMethod p = new PotentialMethod();
+            p.DataReaderConverter("potdata.csv");
+            Console.ReadKey();
         }
     }
 }
