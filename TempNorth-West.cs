@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-
-namespace ConsoleApplication11
-{
-    class Program
+    class HProg
     {
         struct Element
         {
@@ -17,8 +14,7 @@ namespace ConsoleApplication11
                 else return a;
             }
 
-
-            static void Main(string[] args)
+            static void Joi()
             {
                 Console.ForegroundColor = ConsoleColor.Green;
                 int i = 0;
@@ -115,4 +111,3 @@ namespace ConsoleApplication11
             }
         }
     }
-}
