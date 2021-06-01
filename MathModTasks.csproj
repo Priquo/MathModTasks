@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Stank.cs" />
     <Compile Include="TempNorth-West.cs" />
     <Compile Include="MinDistrib.cs" />
     <Compile Include="PotentialMethod.cs" />
