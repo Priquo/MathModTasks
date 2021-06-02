@@ -48,6 +48,11 @@ namespace MatModelPraktika
 
     static class ReadSaveData
     {
+        //Считывание данных для поиска критического и минимального пути
+        //В первую строку записывается начало работы
+        //Во вторую строку конец работы
+        //В третью — ее длительность
+        //В файле: начало | конец | длительность
         public static void ReadData(string path, ref List<Activity> activities)
         {
             if (!File.Exists(path))
@@ -64,6 +69,11 @@ namespace MatModelPraktika
             }
         }
 
+        //Считывание данных для поиска критического и минимального пути
+        //В первую строку автоматически (в файле писать не надо) записывается номер
+        //Во вторую строку время на первом станке
+        //В третью строку время на втором станке
+        //В файле: 1 станок | 2 станок
         public static void ReadData(string path, ref List<Item> items)
         {
             if (!File.Exists(path))
