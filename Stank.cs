@@ -53,19 +53,28 @@ namespace MathModTasks
                     summ[i] += vari[i][j][0];
             //ShowList();
             int min = FindMin(summ);
-            Console.Write("Оптимальное распределение имеет временные затраты: {0};\nРаспределение станков следующее\n", min);
+            int k = 2;
+            string[] m = new string[n+2];
+            m[0] = "Оптимальное распределение имеет временные затраты: " + min;
+            m[1] = "Распределение станков следующее";
+            //Console.Write("Оптимальное распределение имеет временные затраты: {0};\nРаспределение станков следующее\n", min);
             for (int i = 0; i < n; i++)
-                Console.Write(vari[Array.IndexOf(summ, min)][i][0] + ": " + vari[Array.IndexOf(summ, min)][i][1] + ", " + vari[Array.IndexOf(summ, min)][i][2] + "\t");
-        }
-        void ShowList()
-        {
-            for (int i = 0; i < vari.Count; i++)
             {
-                for (int j = 0; j < n; j++)
-                    Console.Write("\t" + vari[i][j][0] + ": " + vari[i][j][1] + ", " + vari[i][j][2] + "\t");
-                Console.WriteLine();
-            }                
+                m[k] = vari[Array.IndexOf(summ, min)][i][0] + ";" + vari[Array.IndexOf(summ, min)][i][1] + ";" + vari[Array.IndexOf(summ, min)][i][2];
+                k++;
+            }
+            //Console.Write(vari[Array.IndexOf(summ, min)][i][0] + ": " + vari[Array.IndexOf(summ, min)][i][1] + ", " + vari[Array.IndexOf(summ, min)][i][2] + "\t");
+            DataWorkerCSV.WriteToCSV("result.csv", m);
         }
+        //void ShowList()
+        //{
+        //    for (int i = 0; i < vari.Count; i++)
+        //    {
+        //        for (int j = 0; j < n; j++)
+        //            Console.Write("\t" + vari[i][j][0] + ": " + vari[i][j][1] + ", " + vari[i][j][2] + "\t");
+        //        Console.WriteLine();
+        //    }                
+        //}
         void MakeSum()
         {
             

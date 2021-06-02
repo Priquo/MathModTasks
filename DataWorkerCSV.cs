@@ -30,9 +30,15 @@ namespace MathModTasks
                 return data;
             }
         }
-        static public void WriteToCSV(string path)
+        static public void WriteToCSV(string path, string[] messege)
         {
-
+            using (StreamWriter sw = File.CreateText(path))
+            {
+                foreach (var s in messege)
+                {
+                    sw.WriteLine(s + ";");
+                }
+            }
         }
     }
 }
