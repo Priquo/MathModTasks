@@ -10,8 +10,8 @@ namespace MathModTasks
     {
         static void Main(string[] args)
         {
-            PotentialMethod p = new PotentialMethod("potdata.csv");
-            p.MainSolution();
+            //PotentialMethod p = new PotentialMethod("potdata.csv");
+            //p.MainSolution();
             Console.ReadKey();
         }
     }

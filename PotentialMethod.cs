@@ -122,10 +122,10 @@ namespace MathModTasks
             U1[0] = true;
             U[0] = 0;
             bool[] V1 = new bool[n];
-            while (!(AllTrue(V1) && AllTrue(U1)))
-            {
+            //while (!(AllTrue(V1) && AllTrue(U1)))
+            //{
 
-            }
+            //}
         }
         // взяла код из какого-то древнего проекта. надеюсь, работает
         // криво работает
@@ -195,10 +195,10 @@ namespace MathModTasks
         //    }
         //    int rt = 0;
         //}
-        private bool AllTrue(bool[] arr)
-        {
-            return Array.TrueForAll(arr, delegate (bool x) { return x; });
-        }
+        //private bool AllTrue(bool[] arr)
+        //{
+        //    return Array.TrueForAll(arr, delegate (bool x) { return x; });
+        //}
         void FindMin()
         {
             int min = mainData[0, 0].Value;
