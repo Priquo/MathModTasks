@@ -43,6 +43,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="JohnsonMethod.cs" />
+    <Compile Include="PathFinder.cs" />
+    <Compile Include="ReadSaveData.cs" />
+    <Compile Include="Simplex.cs" />
     <Compile Include="Stank.cs" />
     <Compile Include="TempNorth-West.cs" />
     <Compile Include="MinDistrib.cs" />

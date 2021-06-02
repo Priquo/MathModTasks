@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -39,6 +40,14 @@ namespace MathModTasks
                     sw.WriteLine(s + ";");
                 }
             }
+        }
+        static public double[,] StringListConverter(List<string[]> list)
+        {
+            double[,] d = new double[list.Count, list.First().Length];
+            for (int i = 0; i < list.Count; i++)
+                for (int j = 0; j < list.First().Length; j++)
+                    d[i, j] = Convert.ToDouble(list[i][j]);
+            return d;
         }
     }
 }
