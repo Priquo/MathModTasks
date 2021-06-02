@@ -18,6 +18,7 @@ namespace MathModTasks
         bool[] checkJ;
         public Stank(string path)
         {
+            // данные в файле должны выглядеть как таблица, у которой значения ячеек разделены с помощью ";". НИКАКИХ ПРОБЕЛОВ!!!!!!
             List<string[]> ls = DataWorkerCSV.ReadCSV(path);
             n = ls.Count;
             checkI = new bool[n];
@@ -75,10 +76,6 @@ namespace MathModTasks
         //        Console.WriteLine();
         //    }                
         //}
-        void MakeSum()
-        {
-            
-        }
         bool AllTrue(bool[,] arr)
         {
             bool flag = true;
