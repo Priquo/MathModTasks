@@ -12,6 +12,8 @@ namespace MathModTasks
         {
             //PotentialMethod p = new PotentialMethod("potdata.csv");
             //p.MainSolution();
+            Stank st = new Stank("data1.csv");
+            st.MainSolution();
             Console.ReadKey();
         }
     }
