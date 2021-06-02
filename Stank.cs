@@ -10,8 +10,9 @@ namespace MathModTasks
     {
         int n;
         int[] minData = new int[3];
+        int[] summ;
         int[,] data;
-        List<int[]> vari = new List<int[]>();
+        List<List<int[]>> vari = new List<List<int[]>>();
         bool[,] checkMin;
         bool[] checkI;
         bool[] checkJ;
@@ -25,23 +26,19 @@ namespace MathModTasks
             checkMin = new bool[n, n];
             for (int i = 0; i < n; i++)
                 for (int j = 0; j < n; j++)
-                {
-                    data[i, j] = Convert.ToInt32(ls[i][j]);
-                    checkMin[i, j] = false;
-                }                  
-            
+                    data[i, j] = Convert.ToInt32(ls[i][j]);            
         }
         public void MainSolution()
         {
             while (AllTrue(checkMin) == true)
             {
                 FindMin();
-                int[] temp = new int[n];
+                List<int[]> temp = new List<int[]>();
                 //List<int[]> minTemp = new List<int[]>();
                 //minTemp.Add(minData);
                 for (int i = 0; i < n; i++)
                 {
-                    temp[i] = data[minData[1], minData[2]];
+                    temp.Add(new int[] {data[minData[1],minData[2]], minData[1], minData[2] });
                     checkI[minData[1]] = true;
                     checkJ[minData[2]] = true;
                     FindMin(1);
@@ -50,16 +47,28 @@ namespace MathModTasks
                 checkI = new bool[n];
                 checkJ = new bool[n];
             }
-            ShowList();
+            summ = new int[vari.Count];
+            for (int i = 0; i < vari.Count; i++)
+                for (int j = 0; j < n; j++)
+                    summ[i] += vari[i][j][0];
+            //ShowList();
+            int min = FindMin(summ);
+            Console.Write("Оптимальное распределение имеет временные затраты: {0};\nРаспределение станков следующее\n", min);
+            for (int i = 0; i < n; i++)
+                Console.Write(vari[Array.IndexOf(summ, min)][i][0] + ": " + vari[Array.IndexOf(summ, min)][i][1] + ", " + vari[Array.IndexOf(summ, min)][i][2] + "\t");
         }
         void ShowList()
         {
             for (int i = 0; i < vari.Count; i++)
             {
                 for (int j = 0; j < n; j++)
-                    Console.Write(vari[i][j] + "\t");
+                    Console.Write("\t" + vari[i][j][0] + ": " + vari[i][j][1] + ", " + vari[i][j][2] + "\t");
                 Console.WriteLine();
             }                
+        }
+        void MakeSum()
+        {
+            
         }
         bool AllTrue(bool[,] arr)
         {
@@ -71,7 +80,7 @@ namespace MathModTasks
                 }
             return !flag;
         }
-        public void FindMin()
+        void FindMin()
         {
             DefaultMin();
             for (int i = 0; i < n; i++)
@@ -84,7 +93,7 @@ namespace MathModTasks
                     }
             checkMin[minData[1], minData[2]] = true;
         }        
-        public void FindMin(int k)
+        void FindMin(int k)
         {            
             DefaultMin(1);
             for (int i = 0; i < n; i++)
@@ -95,6 +104,16 @@ namespace MathModTasks
                         minData[1] = i;
                         minData[2] = j;
                     }
+        }
+        int FindMin(int[] ar)
+        {
+            int min = ar[0];
+            for (int i = 0; i < n; i++)
+                if (min > ar[i])
+                {
+                    min = ar[i];
+                }
+            return min;
         }
         void DefaultMin()
         {
