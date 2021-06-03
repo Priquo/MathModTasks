@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MatModelPraktika
+namespace MathModTasks
 {
     class PathFinder
     {
@@ -27,6 +27,13 @@ namespace MatModelPraktika
             return -1;
         }
 
+        int FindEndingPos()
+        {
+            foreach (Activity activity in activities)
+                if (activities.Where(x => x.eventStart == activity.eventEnd).Count() == 0) return activity.eventEnd;
+            return -1;
+        }
+
         void CalculatePathes()
         {
             foreach (Activity activity in activities.Where(x => x.eventStart == FindStartingPos()))
@@ -45,7 +52,7 @@ namespace MatModelPraktika
         Path FindCriticalPath()
         {
             int maxLength = 0;
-            foreach (Path path in pathes)
+            foreach (Path path in pathes.Where(x => x.lastPoint == FindEndingPos()))
             {
                 if (path.length > maxLength) maxLength = path.length;
             }
@@ -56,7 +63,7 @@ namespace MatModelPraktika
         Path FindMinimalPath()
         {
             int minLength = int.MaxValue;
-            foreach (Path path in pathes)
+            foreach (Path path in pathes.Where(x => x.lastPoint == FindEndingPos()))
             {
                 if (path.length < minLength) minLength = path.length;
             }

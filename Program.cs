@@ -14,8 +14,10 @@ namespace MathModTasks
             //p.MainSolution();
             //Stank st = new Stank("data1.csv");
             //st.MainSolution();
-            Simplex S = new Simplex(DataWorkerCSV.StringListConverter(DataWorkerCSV.ReadCSV("sipm.csv")));
-            S.MakeResult();
+            //Simplex S = new Simplex(DataWorkerCSV.StringListConverter(DataWorkerCSV.ReadCSV("sipm.csv")));
+            //S.MakeResult();
+            var pf = new PathFinder("file.csv", "reshenie.txt");
+            pf.CalculateCriticalPath();
             Console.ReadKey();
         }
     }

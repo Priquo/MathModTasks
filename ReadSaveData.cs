@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MatModelPraktika
+namespace MathModTasks
 {
     public struct Item : IComparable<Item>
     {
@@ -132,7 +132,9 @@ namespace MatModelPraktika
             {
                 using (StreamWriter sw = new StreamWriter(path, false))
                 {
-                    sw.WriteLine("Найденный путь имеет вид:\n" + savingPath.path + "\nЕго длина составляет: " + savingPath.length);
+                    sw.WriteLine("Найденный путь имеет вид:");
+                    sw.WriteLine(savingPath.path);
+                    sw.WriteLine("Его длина составляет: " + savingPath.length);
                 }
             }
             catch
