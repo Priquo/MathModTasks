@@ -25,14 +25,14 @@ namespace MathModTasks
         int[,] delta;
         bool optimSolution = true;
         bool[,] elemChecked;
-        List<int[]> maxDelta;        
+        List<int[]> maxDelta = new List<int[]>();        
         Element[,] mainData;    
         MinDistrib md;
         public PotentialMethod(string path)
         {
-            List<string[]> newdata = DataWorkerCSV.ReadCSV(path);
-            m = newdata.Count - 1;
-            n = newdata.First().Length - 1;
+            List<string[]> newdata = ReadSaveData.ReadData(path);
+            n = newdata.Count - 1;
+            m = newdata.First().Length - 1;
             whogive = new int[n];
             whoget = new int[m];
             V = new int[n];
@@ -70,6 +70,22 @@ namespace MathModTasks
         //    }
         //    Console.WriteLine(md.CountNotNullElement);
         //}
+        void CheckVir(MinDistrib mg)
+        {
+            if (mg.CountNotNullElement != m + n - 1)
+            {
+                FindMin(1);
+                while (true)
+                {
+                    if (mainData[minData[1], minData[2]].Delivery == 0)
+                    {
+                        mainData[minData[1], minData[2]].Delivery = -1;
+                        break;
+                    }
+                    else FindMin(1);
+                }
+            }
+        }
         public void MainSolution()
         {
             MinDistrib md = new MinDistrib(mainData, whogive, whoget, m, n);
@@ -87,23 +103,74 @@ namespace MathModTasks
                     else FindMin(1);
                 }                
             }
-            for (int i = 0; i < n; i++)           
-            for (int j = 0; j < m; j++)
+            V = new int[n];
+            for (int i = 0; i < V.Length; i++)
             {
-                if (mainData[i, j].Delivery == 0)
+                V[i] = 99999;
+            }
+            U = new int[m];
+            for (int i = 0; i < U.Length; i++)
+            {
+                U[i] = 99999;
+            }
+            //нахождение макс. тарифа в заполненых ячейках
+            double MaxCost = 0;
+            int maxV = 0;
+            int maxU = 0;
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < m; j++)
                 {
-                    delta[i, j] = U[j] + V[i] - mainData[i, j].Value;
-                    if (delta[i, j] > maxDelta[0][0])
+                    if (mainData[i, j].Delivery != 0 && mainData[i, j].Value > MaxCost)
                     {
-                        maxDelta.RemoveAt(0);
-                        maxDelta.Add(new int[] { delta[i, j], i, j});
-                    }                    
+                        MaxCost = mainData[i, j].Value;
+                        maxV = i;
+                        maxU = j;
+                    }
                 }
             }
+            //расчет потенциалов 
+            V[maxV] = 0;
+            U[maxU] = mainData[maxV, maxU].Value - V[maxV];
+            bool a = V[maxV] == 99999 || U[maxU] == 99999;
+            Debug.WriteLine(a);
+            for (int sania = 0; sania < m; sania++)
+                for (int i = 0; i < n; i++)
+                    for (int j = 0; j < m; j++)
+                        if (mainData[i, j].Delivery != 0 && (V[i] == 99999 || U[j] == 99999))
+                        {
+                            if (V[i] == 99999 && U[j] == 99999)
+                                continue;
+                            if (V[i] != 99999)
+                            {
+                                for (int k = 0; k < m; k++)
+                                    if (mainData[i, k].Delivery != 0)
+                                        U[k] = mainData[i, k].Value - V[i];
+                            }
+                            if (U[j] != 99999)                           
+                                for (int k = 0; k < n; k++)               
+                                    if (mainData[k, j].Delivery != 0) V[k] = mainData[k, j].Value - U[j];          
+                   
+                        }
+            maxDelta.Add(new int[] { delta[0, 0], 0, 0 });
+            for (int i = 0; i < n; i++)           
+                for (int j = 0; j < m; j++)
+                    if (mainData[i, j].Delivery == 0)
+                    {
+                        delta[i, j] = U[j] + V[i] - mainData[i, j].Value;
+                        if (delta[i, j] > maxDelta[0][0])
+                        {
+                            maxDelta.RemoveAt(0);
+                            maxDelta.Add(new int[] { delta[i, j], i, j});
+                        }                    
+                    }
             for (int i = 0; i < n; i++)
+            {
                 for (int j = 0; j < m; j++)
                     if (delta[i, j] > 0) { optimSolution = false; break; }
-                    else optimSolution = true;
+                if (optimSolution == false) break;
+            }               
+
             //FindUV(U, V, mainData);
             for (int i = 0; i < n; i++)
             {

@@ -19,7 +19,7 @@ namespace MathModTasks
         public Stank(string path)
         {
             // данные в файле должны выглядеть как таблица, у которой значения ячеек разделены с помощью ";". НИКАКИХ ПРОБЕЛОВ!!!!!!
-            List<string[]> ls = DataWorkerCSV.ReadCSV(path);
+            List<string[]> ls = ReadSaveData.ReadData(path);
             n = ls.Count;
             checkI = new bool[n];
             checkJ = new bool[n];
@@ -65,7 +65,7 @@ namespace MathModTasks
                 k++;
             }
             //Console.Write(vari[Array.IndexOf(summ, min)][i][0] + ": " + vari[Array.IndexOf(summ, min)][i][1] + ", " + vari[Array.IndexOf(summ, min)][i][2] + "\t");
-            DataWorkerCSV.WriteToCSV("result.csv", m);
+            ReadSaveData.WriteToFile("result.csv", m);
         }
         //void ShowList()
         //{

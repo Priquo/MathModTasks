@@ -10,14 +10,14 @@ namespace MathModTasks
     {
         static void Main(string[] args)
         {
-            //PotentialMethod p = new PotentialMethod("potdata.csv");
-            //p.MainSolution();
+            PotentialMethod p = new PotentialMethod("potdata4.csv");
+            p.MainSolution();
             //Stank st = new Stank("data1.csv");
             //st.MainSolution();
-            //Simplex S = new Simplex(DataWorkerCSV.StringListConverter(DataWorkerCSV.ReadCSV("sipm.csv")));
+            //Simplex S = new Simplex(ReadSaveData.StringListConverter(ReadSaveData.ReadData("sipm.csv")));
             //S.MakeResult();
-            var pf = new PathFinder("file.csv", "reshenie.txt");
-            pf.CalculateCriticalPath();
+            //var pf = new PathFinder("file.csv", "reshenie.txt");
+            //pf.CalculateCriticalPath();
             Console.ReadKey();
         }
     }

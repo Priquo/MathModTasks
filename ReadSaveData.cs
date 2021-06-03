@@ -91,7 +91,45 @@ namespace MathModTasks
                 i++;
             }
         }
-
+        static public List<string[]> ReadData(string path)
+        {
+            List<string[]> data = new List<string[]>();
+            try
+            {
+                using (StreamReader sr = new StreamReader(path, Encoding.UTF8, true))
+                {
+                    while (sr.EndOfStream != true)
+                    {
+                        string[] str = sr.ReadLine().Split(';');
+                        data.Add(str);
+                    }
+                }
+                return data;
+            }
+            catch (FileNotFoundException)
+            {
+                Console.WriteLine("Ошибка считывания данных!");
+                return data;
+            }
+        }
+        static public void WriteToFile(string path, string[] messege)
+        {
+            using (StreamWriter sw = File.CreateText(path))
+            {
+                foreach (var s in messege)
+                {
+                    sw.WriteLine(s + ";");
+                }
+            }
+        }
+        static public double[,] StringListConverter(List<string[]> list)
+        {
+            double[,] d = new double[list.Count, list.First().Length];
+            for (int i = 0; i < list.Count; i++)
+                for (int j = 0; j < list.First().Length; j++)
+                    d[i, j] = Convert.ToDouble(list[i][j]);
+            return d;
+        }
         public static void WriteToFile(string path, List<Item> items, List<int> prostoi, List<Item> optimalItems, List<int> optimalProstoi)
         {
             if (!File.Exists(path)) File.Create(path).Close();
