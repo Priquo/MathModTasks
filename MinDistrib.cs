@@ -10,12 +10,13 @@ namespace MathModTasks
     {
         int[] whoGive, whoGet;
         Element[,] mainData1;
-        int m, n, count;
-        public int CountNotNullElement
-        {
-            get { return count; }
-            set { count = value; }
-        }
+        int m, n;
+        public int CountNotNullElement = 0;
+        //public int CountNotNullElement
+        //{
+        //    get { return count; }
+        //    set { count = value; }
+        //}
         public MinDistrib(Element[,] mainData, int[] whoGive, int[] whoGet, int m, int n)
         {          
             this.whoGive = whoGive;
@@ -27,7 +28,7 @@ namespace MathModTasks
                 for (int j = 0; j < m; j++)
                     mainData1[i, j].Value = mainData[i, j].Value;
         }
-        public void MinDistribute(ref Element[,] distrMatric)
+        public int MinDistribute(ref Element[,] distrMatric)
         {            
             int[] min = FindMin();
             int i = 0, j = 0;
@@ -52,6 +53,7 @@ namespace MathModTasks
 
                 }
             }
+            return CountNotNullElement;
         }
         public int[] FindMin()
         {
