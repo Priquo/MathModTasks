@@ -241,7 +241,7 @@ namespace MathModTasks
             {
                 string[] row = new string[m];
                 for (int j = 0; j < m; j++)
-                    row[j] = (mainData[i, j].Value + "/" + mainData[i, j].Delivery + "\t");
+                    row[j] = (mainData[i, j].Value + "/" + mainData[i, j].Delivery);
                 message.Add(row);
             }
             message.Add(new string[] {"Оптимальная стоимость", summ.ToString() });

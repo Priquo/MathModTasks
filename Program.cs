@@ -10,7 +10,7 @@ namespace MathModTasks
     {
         static void Main(string[] args)
         {
-            //PotentialMethod p = new PotentialMethod("potdata3.csv");
+            //PotentialMethod p = new PotentialMethod("potdata4.csv");
             //p.MainSolution();
             //Stank st = new Stank("data1.csv");
             //st.MainSolution();
