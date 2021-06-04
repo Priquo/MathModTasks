@@ -221,16 +221,16 @@ namespace MathModTasks
                     break;
                 }
             }
+            List<string[]> message = new List<string[]>();            
             for (int i = 0; i < n; i++)
             {
+                string[] row = new string[m];
                 for (int j = 0; j < m; j++)
-                    Console.Write(mainData[i, j].Value + "/" + mainData[i, j].Delivery + "\t");
-                Console.WriteLine();
+                    row[j] = (mainData[i, j].Value + "/" + mainData[i, j].Delivery + "\t");
+                message.Add(row);
             }
-            for (int i = 0; i < n; i++) Console.Write(U[i] + "\t");
-            Console.WriteLine();
-            for (int i = 0; i < n; i++) Console.Write(V[i] + "\t");
-
+            message.Add(new string[] {"Оптимальная стоимость", summ.ToString() });
+            ReadSaveData.WriteToFile("TransportSolution.csv", message);
         } 
         // оставьте в покое метод... он мне где-то нужен был
         void FindMin()

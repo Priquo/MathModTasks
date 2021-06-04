@@ -124,6 +124,20 @@ namespace MathModTasks
                 }
             }
         }
+        static public void WriteToFile(string path, List<string[]> message)
+        {
+            using (StreamWriter sw = File.CreateText(path))
+            {
+                foreach (var text in message)
+                {
+                    foreach(var s in text)
+                    {
+                        sw.Write(s + ";");
+                    }
+                    sw.WriteLine();
+                }
+            }
+        }
         static public double[,] StringListConverter(List<string[]> list)
         {
             double[,] d = new double[list.Count, list.First().Length];
