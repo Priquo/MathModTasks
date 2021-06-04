@@ -22,7 +22,7 @@ namespace MathModTasks
             this.savingPath = savingPath;
         }
 
-        public bool PoiskSovpad(int pi, int j)
+        bool PoiskSovpad(int pi, int j)
         {
             bool sch = true; //совпадений нет
             foreach (string s in puti[pi].Split('-'))
@@ -36,7 +36,7 @@ namespace MathModTasks
             return sch;
         }
 
-        public void CalculatePathes()
+        void CalculatePathes()
         {
             for (int i = 0; i < uzli; i++) //точка отправления - передаем в метод для поиска путей
             {
@@ -48,7 +48,7 @@ namespace MathModTasks
 
         }
 
-        public string[] Schet(int pi, int i1, int i2)
+        string[] Schet(int pi, int i1, int i2)
         {
             int min = time[i1, i2], mi2 = i2;
             if (puti[pi].Length != time.GetLength(0) * 2 - 1)
