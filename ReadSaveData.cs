@@ -113,9 +113,9 @@ namespace MathModTasks
             }
         }
 
-        public static void ReadData(string path, int uzli, ref int[,] time)
+        public static void ReadData(string path, ref int[,] time)
         {
-            time = new int[uzli, uzli];
+            
             if (!File.Exists(path))
             {
                 Console.WriteLine("Файл не найден!");
@@ -124,6 +124,8 @@ namespace MathModTasks
             }
             var lines = File.ReadAllLines(path);
             int k = 0;
+            
+            time = new int[lines.Length, lines.Length];
             foreach (var line in lines)
             {
 

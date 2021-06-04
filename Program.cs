@@ -20,7 +20,6 @@ namespace MathModTasks
             //pf.CalculateCriticalPath();
             Сommivoyageur commivoyageur = new Сommivoyageur("Commivoyazh.csv", "reshenie.txt");
             commivoyageur.Calculate();
-            Console.ReadKey();
         }
     }
 }
