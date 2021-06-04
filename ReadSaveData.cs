@@ -112,6 +112,8 @@ namespace MathModTasks
                 return data;
             }
         }
+
+        //Метод Ангелины
         static public void WriteToFile(string path, string[] messege)
         {
             using (StreamWriter sw = File.CreateText(path))
@@ -130,6 +132,7 @@ namespace MathModTasks
                     d[i, j] = Convert.ToDouble(list[i][j]);
             return d;
         }
+        //Метод для Джонсона
         public static void WriteToFile(string path, List<Item> items, List<int> prostoi, List<Item> optimalItems, List<int> optimalProstoi)
         {
             if (!File.Exists(path)) File.Create(path).Close();
@@ -163,6 +166,7 @@ namespace MathModTasks
             }
         }
 
+        //Метод для путей
         public static void WriteToFile(string path, Path savingPath)
         {
             if (!File.Exists(path)) File.Create(path).Close();
@@ -181,6 +185,18 @@ namespace MathModTasks
                 Console.ReadKey();
                 Environment.Exit(0);
             }
+        }
+        //Для симплекс метода
+        public static void WriteToFile(string path, double[] result)
+        {
+            using (StreamWriter sw = new StreamWriter(path, false))
+            {
+                sw.WriteLine();
+                sw.WriteLine("Решение:");
+                sw.WriteLine("X[1] = " + result[0]);
+                sw.WriteLine("X[2] = " + result[1]);
+            }
+            
         }
     }
 }

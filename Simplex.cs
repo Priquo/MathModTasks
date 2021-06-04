@@ -8,6 +8,7 @@ namespace MathModTasks
 {
     public class Simplex
     {
+        string savePath;
         //source - симплекс таблица без базисных переменных
         double[,] table; //симплекс таблица
 
@@ -15,8 +16,9 @@ namespace MathModTasks
 
         List<int> basis; //список базисных переменных
 
-        public Simplex(double[,] source)
+        public Simplex(string savePath, double[,] source)
         {
+            this.savePath = savePath;
             m =source.GetLength(0);
             n = source.GetLength(1);
             table = new double[m, n + m - 1];
@@ -92,10 +94,7 @@ namespace MathModTasks
                     Console.Write(table_result[i, j] + "\t");
                 Console.WriteLine();
             }
-            Console.WriteLine();
-            Console.WriteLine("Решение:");
-            Console.WriteLine("X[1] = " + result[0]);
-            Console.WriteLine("X[2] = " + result[1]);
+            ReadSaveData.WriteToFile(savePath, result);
         }
         private bool IsItEnd()
         {
