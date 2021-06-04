@@ -17,7 +17,7 @@ namespace MathModTasks
             this.savePath = savePath;
         }
 
-        List<Activity> activities = new List<Activity>(); //Список всех активностей (в графике это дуги)
+        List<Activity> activities = new List<Activity>(); //Список всех работ (в графике это дуги)
         List<Path> pathes = new List<Path>(); //Список всех путей
 
         int FindStartingPos() //Метод для поиска начальной точки
