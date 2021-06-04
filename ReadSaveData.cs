@@ -113,6 +113,29 @@ namespace MathModTasks
             }
         }
 
+        public static void ReadData(string path, int uzli, ref int[,] time)
+        {
+            time = new int[uzli, uzli];
+            if (!File.Exists(path))
+            {
+                Console.WriteLine("Файл не найден!");
+                Console.ReadKey();
+                Environment.Exit(0);
+            }
+            var lines = File.ReadAllLines(path);
+            int k = 0;
+            foreach (var line in lines)
+            {
+
+                string[] str = line.Split(';');
+                for (int j = 0; j < str.Length; j++)
+                {
+                    time[k, j] = Convert.ToInt32(str[j]);
+                }
+                k++;
+            }
+        }
+
         //Метод Ангелины
         static public void WriteToFile(string path, string[] messege)
         {
@@ -211,6 +234,32 @@ namespace MathModTasks
                 sw.WriteLine("X[2] = " + result[1]);
             }
             
+        }
+
+        //Для метода коммивояжера
+        public static void WriteToFile(string path, int uzli, string[] puti, int[] f)
+        {
+            if (!File.Exists(path)) File.Create(path).Close();
+            using (StreamWriter sw = new StreamWriter(path, false))
+            {
+                sw.WriteLine("Все пути:");
+                for (int i = 0; i < puti.Length; i++)
+                {
+                    sw.WriteLine($"Путь: {puti[i]}, F = {f[i]} у.д.е.");
+                }
+                int min = f[0];
+                for (int i = 1; i < puti.Length; i++)
+                {
+                    if (min > f[i])
+                        min = f[i];
+                }
+                sw.WriteLine("\nОТВЕТ:\nПути с наименьшими затратами: \r\n");
+                for (int i = 0; i < puti.Length; i++)
+                {
+                    if (f[i] == min)
+                        sw.WriteLine((puti[i] + ", F = " + f[i] + "\r\n"));
+                }
+            }
         }
     }
 }
