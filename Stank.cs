@@ -31,51 +31,43 @@ namespace MathModTasks
         }
         public void MainSolution()
         {
+            //пока все минимумы не будут использованы, цикл продолжается
             while (AllTrue(checkMin) == true)
             {
+                //находит минимум во всей матрице
                 FindMin();
                 List<int[]> temp = new List<int[]>();
-                //List<int[]> minTemp = new List<int[]>();
-                //minTemp.Add(minData);
                 for (int i = 0; i < n; i++)
                 {
+                    //добавляет первый минимум и потом "вырезает" его индексы, чтобы они не использовались для нахождения других минимумов
                     temp.Add(new int[] {data[minData[1],minData[2]], minData[1], minData[2] });
                     checkI[minData[1]] = true;
                     checkJ[minData[2]] = true;
                     FindMin(1);
                 }
+                //добавляется вариант распределения, после чего минимум ищется снова, но другой
                 vari.Add(temp);
                 checkI = new bool[n];
                 checkJ = new bool[n];
             }
+            //подсчет суммы всех вариантов и нахождение минимальной
             summ = new int[vari.Count];
             for (int i = 0; i < vari.Count; i++)
                 for (int j = 0; j < n; j++)
-                    summ[i] += vari[i][j][0];
-            //ShowList();
+                    summ[i] += vari[i][j][0];            
             int min = FindMin(summ);
+            //подготовка результатов для записи в файл
             int k = 2;
             string[] m = new string[n+2];
             m[0] = "Оптимальное распределение имеет временные затраты: " + min;
             m[1] = "Распределение станков следующее";
-            //Console.Write("Оптимальное распределение имеет временные затраты: {0};\nРаспределение станков следующее\n", min);
             for (int i = 0; i < n; i++)
             {
                 m[k] = vari[Array.IndexOf(summ, min)][i][0] + ";" + vari[Array.IndexOf(summ, min)][i][1] + ";" + vari[Array.IndexOf(summ, min)][i][2];
                 k++;
             }
-            //Console.Write(vari[Array.IndexOf(summ, min)][i][0] + ": " + vari[Array.IndexOf(summ, min)][i][1] + ", " + vari[Array.IndexOf(summ, min)][i][2] + "\t");
             ReadSaveData.WriteToFile("result.csv", m);
         }
-        //void ShowList()
-        //{
-        //    for (int i = 0; i < vari.Count; i++)
-        //    {
-        //        for (int j = 0; j < n; j++)
-        //            Console.Write("\t" + vari[i][j][0] + ": " + vari[i][j][1] + ", " + vari[i][j][2] + "\t");
-        //        Console.WriteLine();
-        //    }                
-        //}
         bool AllTrue(bool[,] arr)
         {
             bool flag = true;
@@ -86,6 +78,7 @@ namespace MathModTasks
                 }
             return !flag;
         }
+        //данный минимум используется в начале, checkMin записывает, использовался ли минимум (тру если да) 
         void FindMin()
         {
             DefaultMin();
@@ -98,7 +91,8 @@ namespace MathModTasks
                         minData[2] = j;
                     }
             checkMin[minData[1], minData[2]] = true;
-        }        
+        }
+        //данный минимум используется для "вырезания" использованных индексов с помощью массивов checkI и checkJ для индексов i и j соответственно
         void FindMin(int k)
         {            
             DefaultMin(1);
@@ -111,6 +105,7 @@ namespace MathModTasks
                         minData[2] = j;
                     }
         }
+        //этот минимум нужен для нахождения минимальной суммы распределения работ у станков
         int FindMin(int[] ar)
         {
             int min = ar[0];
@@ -121,6 +116,7 @@ namespace MathModTasks
                 }
             return min;
         }
+        //задает значение минимуму перед нахождением самого минимума в матрице в перегрузке метода FindMin()
         void DefaultMin()
         {
             for (int i = 0; i < n; i++)
@@ -132,6 +128,7 @@ namespace MathModTasks
                         minData[2] = j;
                     }
         }
+        //задает значение минимуму перед нахождением самого минимума в матрице в перегрузке метода FindMin(int k)
         void DefaultMin(int k)
         {
             for (int i = 0; i < n; i++)
