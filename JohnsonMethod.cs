@@ -11,11 +11,11 @@ namespace MathModTasks
     {
         string readPath;
         string savePath;
-        List<Item> items = new List<Item>();
-        List<Item> optimalItems = new List<Item>();
+        List<Item> items = new List<Item>(); //Список предметов, загруженный из файла
+        List<Item> optimalItems = new List<Item>(); //Список предметов после оптимального распределения
 
-        List<int> prostoi = new List<int>();
-        List<int> optimalProstoi = new List<int>();
+        List<int> prostoi = new List<int>(); //Список простоев станков
+        List<int> optimalProstoi = new List<int>(); //Список простоев станков после оптимального распределения
 
         public JohnsonMethod(string readPath, string savePath)
         {
@@ -23,35 +23,35 @@ namespace MathModTasks
             this.savePath = savePath;
         }
 
-        void SortElements()
+        void SortElements() //Метод сортировки элементов по массиву
         {
-            List<Item> aList = new List<Item>();
-            List<Item> bList = new List<Item>();
+            List<Item> aList = new List<Item>(); //Первый временный список, для дальнейшего распределения
+            List<Item> bList = new List<Item>(); //Второй временный список, для дальнейшего распределения
             foreach (Item item in items)
             {
-                if (item.aTime <= item.bTime)
+                if (item.aTime <= item.bTime) //Если время на первом станке <=, чем на втором, то идет добавление в первый временный список
                 {
                     aList.Add(item);
                 }
-                else bList.Add(item);
+                else bList.Add(item); //В ином случае записывается во второй временный список
             }
-            aList.Sort();
-            bList.Sort();
-            bList.Reverse();
-            foreach (Item item in aList) optimalItems.Add(item);
-            foreach (Item item in bList) optimalItems.Add(item);
+            aList.Sort(); //Данный список сортируется в порядке возрастания времени на первом станке (см. структуру)
+            bList.Sort(); //Данный список сортируется в порядке возрастания времени на втором станке (см. структуру)
+            bList.Reverse(); //Далее данный список переворачивается для дальнейшего объединения
+            foreach (Item item in aList) optimalItems.Add(item); //Все данные из первого списка записываются в новый список
+            foreach (Item item in bList) optimalItems.Add(item); //Все данные из второго списка записываются в новый список
         }
 
         void FindOptimal(List<Item> items, List<int> prostoi)
         {
-            int count = 0;
+            int count = 0; //Временная переменная для подсчета простоев
             for (int i = 0; i < items.Count; i++)
             {
-                if (i != 0)
-                    count += (items[i].aTime - items[i - 1].bTime);
-                else
+                if (i != 0) //Если это не первый элемент в первом списке
+                    count += (items[i].aTime - items[i - 1].bTime); //То вычисляется по этой формуле
+                else //Если первый, то просто записывается
                     count += items[i].aTime;
-                prostoi.Add(count);
+                prostoi.Add(count); //И это записывается в лист простоев
             }
         }
 
