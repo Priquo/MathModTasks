@@ -90,7 +90,9 @@ namespace MathModTasks
         }
         public void MainSolution()
         {            
+            //выполняется распределение по минимальному элементу
             md = new MinDistrib(mainData, whogive, whoget, m, n);
+            //проверка на вырожденность, где добавляется фиктивная поставка
             while (md.MinDistribute(ref mainData) != m + n - 1)
             {
                 CheckVir(md);
@@ -108,7 +110,7 @@ namespace MathModTasks
                 {
                     U[i] = 99999;
                 }
-                //нахождение макс. тарифа в заполненых ячейках
+                //нахождение макс. затрат в заполненых ячейках, чтобы были хоть какие-то значения для подсчета потенциалов
                 double MaxCost = 0;
                 int maxV = 0;
                 int maxU = 0;
@@ -145,6 +147,8 @@ namespace MathModTasks
                                         if (mainData[k, j].Delivery != 0) V[k] = mainData[k, j].Value - U[j];
 
                             }
+                //рассчет дельты (V[i] + U[j] - C[i,j]) и занесения максимальной в соответсвующий список
+                //список очищается для выполнения алгоритма в цикле
                 maxDelta.Clear();
                 maxDelta.Add(new int[] { 0, 0, 0 });
                 delta = new int[n, m];
@@ -159,6 +163,8 @@ namespace MathModTasks
                                 maxDelta.Add(new int[] { delta[i, j], i, j });
                             }
                         }
+                //проверка оптимальности метода
+                //если есть хоть одна положительная дельта, то решение не оптимально 
                 for (int i = 0; i < n; i++)
                 {
                     for (int j = 0; j < m; j++)
@@ -172,7 +178,7 @@ namespace MathModTasks
                 {
                     double MaxCostInRowWithDelta = 0;
                     int MaxCostInRowWithDeltaI = 0, MaxCostInRowWithDeltaJ = 0;
-                    //находим ячейку с товаром и макс. тарифом в строке с макс. дельта
+                    //находим ячейку с поставкой и максимальными затратами в строке с макс. дельта
                     //maxDelta[0][1] - возвращает индекс строки максимальной дельты
                     //maxDelta[0][2] - возвращает индекс столбца максимальной дельты
                     for (int j = 0; j < m; j++)
@@ -184,7 +190,7 @@ namespace MathModTasks
                             MaxCostInRowWithDeltaJ = j;
                         }
                     }
-                    //находим ячейку с товаром и макс. тарифом в столбце с макс. дельта
+                    //находим ячейку с поставкой и максимальными затратами в столбце с макс. дельта
                     double MaxCostInCOLUMNWithDelta = 0;
                     int MaxCostInColumnWithDeltaI = 0, MaxCostInColumnWithDeltaJ = 0;
 
@@ -198,6 +204,8 @@ namespace MathModTasks
                         }
                     }
                     //находим, сколько товара мы можем переместить
+                    // сравнивается ячейка с поставкой и макс. затратами в столбце и в строке с макс. дельта
+                    // если какая-то из них больше, он берет меньшую
                     double MaxAmountWeCanAfford;
                     if (mainData[MaxCostInColumnWithDeltaI, MaxCostInColumnWithDeltaJ].Delivery > mainData[MaxCostInRowWithDeltaI, MaxCostInRowWithDeltaJ].Delivery)
                     {
@@ -208,11 +216,17 @@ namespace MathModTasks
                         MaxAmountWeCanAfford = mainData[MaxCostInColumnWithDeltaI, MaxCostInColumnWithDeltaJ].Delivery;
                     }
                     //перемещаем товар
+                    //эта ячейка - поставка с макс. затратами в строке с макс. дельта, из неё вычитают перемещенный поставку
                     mainData[MaxCostInRowWithDeltaI, MaxCostInRowWithDeltaJ].Delivery -= (int)MaxAmountWeCanAfford;
+                    //эта ячейка - сама макс. дельта, в неё перемещают поставку
                     mainData[maxDelta[0][1], maxDelta[0][2]].Delivery += (int)MaxAmountWeCanAfford;
+                    //эта ячейка - поставка с макс. затратами в столбце с макс. дельта, из неё вычитают перемещенный поставку
                     mainData[MaxCostInColumnWithDeltaI, MaxCostInColumnWithDeltaJ].Delivery -= (int)MaxAmountWeCanAfford;
+                    //эта ячейка сод-ит индекс стр. из ячейки с макс. зат-ми в ст-бце с макс.д. и индекс ст-бца из ячейки с макс. зат-ми в стр-ке с макс.д.
+                    //её заполняют как противолежащую максимальной дельте, таким образом образуя прямоугольник или квадрат
                     mainData[MaxCostInColumnWithDeltaI, MaxCostInRowWithDeltaJ].Delivery += (int)MaxAmountWeCanAfford;
                 }
+                //рассчет суммы, если решение оптимально
                 else
                 {
                     for (int i = 0; i < n; i++)
@@ -221,6 +235,7 @@ namespace MathModTasks
                     break;
                 }
             }
+            //подготовка результатов для записи в файл
             List<string[]> message = new List<string[]>();            
             for (int i = 0; i < n; i++)
             {
