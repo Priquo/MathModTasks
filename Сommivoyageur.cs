@@ -42,7 +42,7 @@ namespace MathModTasks
             {
                 Array.Resize(ref puti, puti.Length + 1); //Увеличение размера массива путей
                 Array.Resize(ref f, f.Length + 1); //Увеличение размера массива длины путей
-                puti[puti.Length - 1] = $"{i + 1}"; //Запись в конец пути стартового элемента (с которого начинается путь)
+                puti[puti.Length - 1] = $"{i + 1}"; //Запись в начало пути стартового элемента
                 puti = Schet(puti.Length - 1, i); //Добавление нового пути
             }
 
