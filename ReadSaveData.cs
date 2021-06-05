@@ -113,6 +113,8 @@ namespace MathModTasks
             }
         }
 
+        //Для комивояжера
+        //Формат записи: Даннные записываются в файл csv. Там должны быть только САМИ ДЛИНЫ ПУТЕЙ, разделённые ';' (на концах элементов последнего столбца этого не нужно ставить)
         public static void ReadData(string path, ref int[,] time)
         {
             
@@ -125,14 +127,14 @@ namespace MathModTasks
             var lines = File.ReadAllLines(path);
             int k = 0;
             
-            time = new int[lines.Length, lines.Length];
+            time = new int[lines.Length, lines.Length]; //Инициализируется массив, куда будут записываться значения
             foreach (var line in lines)
             {
 
-                string[] str = line.Split(';');
+                string[] str = line.Split(';'); //Считывание в строковой массив
                 for (int j = 0; j < str.Length; j++)
                 {
-                    time[k, j] = Convert.ToInt32(str[j]);
+                    time[k, j] = Convert.ToInt32(str[j]); //Передача в основной массив
                 }
                 k++;
             }
