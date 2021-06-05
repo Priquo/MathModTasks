@@ -58,6 +58,7 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="Examples\criticalpath.csv" />
+    <None Include="Examples\data1.csv" />
     <None Include="Examples\johnson.csv" />
     <None Include="Examples\minimalpath.csv" />
     <None Include="Examples\potdata2.csv" />
