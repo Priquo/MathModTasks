@@ -47,7 +47,6 @@ namespace MathModTasks
             elemChecked = new bool[n, m];
             mainData = new Element[n, m];
             
-            //для чтения надо первую ячейку сделать НУЛЕМ! остальные - как в таблице (после нуля по строчкам - покупатели, по столбцам - поставщики, и тд)
             for (int i = 0; i < newdata.Count; i++)
             {
                 for (int j = 0; j < newdata.First().Length; j++)

@@ -91,6 +91,12 @@ namespace MathModTasks
                 i++;
             }
         }
+        /// <summary>
+        /// Чтение данных из CSV-файла по указанному пути
+        /// </summary>
+        /// <param name="path">Путь к файлу</param>
+        /// <returns></returns>
+        /// <remarks>Транспортная задача: для чтения надо первую ячейку сделать НУЛЕМ! Остальные - как в таблице. Распределение работ между станками: данные в файле должны выглядеть как таблица, у которой значения ячеек разделены с помощью ";", без пробелов.</remarks>        
         static public List<string[]> ReadData(string path)
         {
             List<string[]> data = new List<string[]>();
@@ -139,8 +145,12 @@ namespace MathModTasks
                 k++;
             }
         }
-
-        //Метод Ангелины
+        /// <summary>
+        /// Запись в CSV-файл по указанному пути элементов массива message через ";"
+        /// </summary>
+        /// <param name="path">Путь для записи файла</param>
+        /// <param name="messege">Строковый массив сообщений</param>
+        /// <remarks>Используется в задаче распределения работ между станками</remarks>
         static public void WriteToFile(string path, string[] messege)
         {
             using (StreamWriter sw = File.CreateText(path))
@@ -151,6 +161,12 @@ namespace MathModTasks
                 }
             }
         }
+        /// <summary>
+        /// Запись в CSV-файл по указанному пути элементов матрицы message через ";" (каждая строка - на новой строке)
+        /// </summary>
+        /// <param name="path">Путь для записи файла</param>
+        /// <param name="message">Коллекция строковых массивов сообщений для записи</param>
+        /// <remarks>Используется при решении транспортной задачи.</remarks>
         static public void WriteToFile(string path, List<string[]> message)
         {
             using (StreamWriter sw = File.CreateText(path))
@@ -165,6 +181,12 @@ namespace MathModTasks
                 }
             }
         }
+        /// <summary>
+        /// Конвертирует коллекцию строкового типа в матрицу double
+        /// </summary>
+        /// <param name="list">Коллекция строкового типа</param>
+        /// <returns></returns>
+        /// <remarks>Используется в симплекс-методе.</remarks>
         static public double[,] StringListConverter(List<string[]> list)
         {
             double[,] d = new double[list.Count, list.First().Length];
@@ -228,6 +250,11 @@ namespace MathModTasks
             }
         }
         //Для симплекс метода
+        /// <summary>
+        /// Запись результатов в файл для симплекс-метода
+        /// </summary>
+        /// <param name="path">Путь к файлу</param>
+        /// <param name="result">Массив с результатами</param>
         public static void WriteToFile(string path, double[] result)
         {
             using (StreamWriter sw = new StreamWriter(path, false))

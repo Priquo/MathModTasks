@@ -6,16 +6,22 @@ using System.Threading.Tasks;
 
 namespace MathModTasks
 {
+    /// <summary>
+    /// Производит решение задачи симплекс-методом
+    /// </summary>
     public class Simplex
     {
         string savePath;
-        //source - симплекс таблица без базисных переменных
         double[,] table; //симплекс таблица
 
         int m, n;
 
         List<int> basis; //список базисных переменных
-
+        /// <summary>
+        /// Инициализирует новый экземпляр класса Simplex и преобразует исходные данные для обработки
+        /// </summary>
+        /// <param name="savePath">Путь для сохранения файла</param>
+        /// <param name="source">Симплекс таблица без базисных переменных</param>
         public Simplex(string savePath, double[,] source)
         {
             this.savePath = savePath;
@@ -44,7 +50,11 @@ namespace MathModTasks
             n = table.GetLength(1);
         }
 
-        //result - в этот массив будут записаны полученные значения X
+        /// <summary>
+        /// Вычисление симплекс-метода в массив
+        /// </summary>
+        /// <param name="result">Массив полученных значений Х</param>
+        /// <returns></returns>
         double[,] Calculate(double[] result)
         {
             int mainCol, mainRow; //ведущие столбец и строка
@@ -83,6 +93,9 @@ namespace MathModTasks
 
             return table;
         }
+        /// <summary>
+        /// Вычисляет результаты методом Calculate() и записывает результаты в файл
+        /// </summary>
         public void MakeResult()
         {
             double[] result = new double[2];
@@ -96,6 +109,10 @@ namespace MathModTasks
             }
             ReadSaveData.WriteToFile(savePath, result);
         }
+        /// <summary>
+        /// Осуществляет проверку строки оценок симплекс-таблицы на наличие положительных значений. Если их нет, возвращает false.
+        /// </summary>
+        /// <returns></returns>
         private bool IsItEnd()
         {
             bool flag = true;
@@ -111,7 +128,10 @@ namespace MathModTasks
 
             return flag;
         }
-
+        /// <summary>
+        /// Находит разрешающий столбец симплекс-таблицы
+        /// </summary>
+        /// <returns></returns>
         private int findMainCol()
         {
             int mainCol = 1;
@@ -122,7 +142,11 @@ namespace MathModTasks
 
             return mainCol;
         }
-
+        /// <summary>
+        /// Находит разрешающую строку симплекс-таблицы
+        /// </summary>
+        /// <param name="mainCol">Разрешающий столбец симплекс-таблицы</param>
+        /// <returns></returns>
         private int findMainRow(int mainCol)
         {
             int mainRow = 0;

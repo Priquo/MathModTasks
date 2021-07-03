@@ -25,7 +25,6 @@ namespace MathModTasks
         /// <param name="path">Путь к файлу с исходными данными</param>
         public Stank(string path)
         {
-            // данные в файле должны выглядеть как таблица, у которой значения ячеек разделены с помощью ";". НИКАКИХ ПРОБЕЛОВ!!!!!!
             List<string[]> ls = ReadSaveData.ReadData(path);
             n = ls.Count;
             checkI = new bool[n];
