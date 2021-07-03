@@ -18,6 +18,9 @@ namespace MathModTasks
             else return a;
         }
     }
+    /// <summary>
+    /// Решение трансопортной задачи методом потенциалов с использованием распределения по мин. элементу
+    /// </summary>
     class PotentialMethod
     {
         int n, m, summ;
@@ -28,6 +31,10 @@ namespace MathModTasks
         List<int[]> maxDelta = new List<int[]>();        
         Element[,] mainData;    
         MinDistrib md;
+        /// <summary>
+        /// Инициализирует новый экземпляр класса PotentialMethod с чтением исходных данных по указанному пути, задавая начальные значение внутренним переменным
+        /// </summary>
+        /// <param name="path">Путь к файлу с исходными данными</param>
         public PotentialMethod(string path)
         {
             List<string[]> newdata = ReadSaveData.ReadData(path);
@@ -57,20 +64,10 @@ namespace MathModTasks
                 }
             }
         }
-        // раньше был метод, но теперь часть конструктора. по итогу использую для отладки
-        //public void DataReaderConverter(string path)
-        //{
-
-        //    MinDistrib md = new MinDistrib(mainData, whogive, whoget, m, n);
-        //    md.MinDistribute();
-        //    for (int i = 0; i < n; i++)
-        //    {
-        //        for (int j = 0; j < m; j++)
-        //            Console.Write(md.distrMatric[i, j] + "\t");
-        //        Console.WriteLine();
-        //    }
-        //    Console.WriteLine(md.CountNotNullElement);
-        //}
+        /// <summary>
+        /// Осуществляет проверку на вырожденность
+        /// </summary>
+        /// <param name="mg">Экземпляр класса MinDistrib, выполняющий распределение по мин. элементу</param>
         void CheckVir(MinDistrib mg)
         {
             if (mg.CountNotNullElement != m + n - 1)
@@ -88,6 +85,9 @@ namespace MathModTasks
                 }
             }
         }
+        /// <summary>
+        /// Находит оптимальное решение транспортной задачи
+        /// </summary>
         public void MainSolution()
         {            
             //выполняется распределение по минимальному элементу
@@ -246,22 +246,7 @@ namespace MathModTasks
             }
             message.Add(new string[] {"Оптимальная стоимость", summ.ToString() });
             ReadSaveData.WriteToFile("TransportSolution.csv", message);
-        } 
-        // оставьте в покое метод... он мне где-то нужен был
-        void FindMin()
-        {
-            int min = mainData[0, 0].Value;
-            minData = new int[3];
-            for (int i = 0; i < n; i++)
-            for (int j = 0; j < m; j++)
-            if (min > mainData[i, j].Value && mainData[i, j].Value != 0 && min != 0)
-            {
-                min = mainData[i, j].Value;
-                minData[0] = min;
-                minData[1] = i;
-                minData[2] = j;
-            }                
-        }
+        }        
         void FindMin(int k)
         {
             int min = mainData[0, 0].Value;

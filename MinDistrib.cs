@@ -6,17 +6,23 @@ using System.Threading.Tasks;
 
 namespace MathModTasks
 {
+    /// <summary>
+    /// Осуществляет распределение в транспортной задаче по минимальному элементу
+    /// </summary>
     class MinDistrib
     {
         int[] whoGive, whoGet;
         Element[,] mainData1;
         int m, n;
         public int CountNotNullElement = 0;
-        //public int CountNotNullElement
-        //{
-        //    get { return count; }
-        //    set { count = value; }
-        //}
+        /// <summary>
+        /// Задает локальные переменные для вычисления
+        /// </summary>
+        /// <param name="mainData">Матрица с затратами на перевозку</param>
+        /// <param name="whoGive">Массив поставщиков</param>
+        /// <param name="whoGet">Массив покупателей</param>
+        /// <param name="m">Количество столбцов</param>
+        /// <param name="n">Количество строк</param>
         public MinDistrib(Element[,] mainData, int[] whoGive, int[] whoGet, int m, int n)
         {          
             this.whoGive = whoGive;
@@ -28,6 +34,11 @@ namespace MathModTasks
                 for (int j = 0; j < m; j++)
                     mainData1[i, j].Value = mainData[i, j].Value;
         }
+        /// <summary>
+        /// Осуществляет распределение в транспортной задаче по минимальному элементу
+        /// </summary>
+        /// <param name="distrMatric">Матрица для распределения поставок</param>
+        /// <returns></returns>
         public int MinDistribute(ref Element[,] distrMatric)
         {            
             int[] min = FindMin();
@@ -61,6 +72,10 @@ namespace MathModTasks
             }
             return CountNotNullElement;
         }
+        /// <summary>
+        /// Нахождение минимального элемента с обнулением матрицы затрат (чтобы не использовалась при следующем нахождении минимума)
+        /// </summary>
+        /// <returns></returns>
         public int[] FindMin()
         {
             int min = mainData1[0, 0].Value;
@@ -87,6 +102,12 @@ namespace MathModTasks
             mainData1[minData[1], minData[2]].Value = 0;
             return minData;
         }
+        /// <summary>
+        /// Нахождение минимума среди чисел a и b
+        /// </summary>
+        /// <param name="a">число</param>
+        /// <param name="b">число</param>
+        /// <returns></returns>
         static int FindMinElement(int a, int b)
         {
             if (a > b) return b;

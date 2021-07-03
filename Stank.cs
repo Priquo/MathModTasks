@@ -16,6 +16,10 @@ namespace MathModTasks
         bool[,] checkMin;
         bool[] checkI;
         bool[] checkJ;
+        /// <summary>
+        /// Класс для оптимального распределения m-го количества работ среди n-го количества станков
+        /// </summary>
+        /// <param name="path">Путь к файлу с исходными данными</param>
         public Stank(string path)
         {
             // данные в файле должны выглядеть как таблица, у которой значения ячеек разделены с помощью ";". НИКАКИХ ПРОБЕЛОВ!!!!!!
@@ -29,6 +33,9 @@ namespace MathModTasks
                 for (int j = 0; j < n; j++)
                     data[i, j] = Convert.ToInt32(ls[i][j]);            
         }
+        /// <summary>
+        /// Находит оптимальное распределение работ между станками
+        /// </summary>
         public void MainSolution()
         {
             //пока все минимумы не будут использованы, цикл продолжается
