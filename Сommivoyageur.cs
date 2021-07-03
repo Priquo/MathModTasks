@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace MathModTasks
 {
+    /// <summary>
+    /// Класс для решения задачи комивояжера
+    /// </summary>
     class Сommivoyageur
     {
         string readPath; 
@@ -16,12 +19,22 @@ namespace MathModTasks
         int uzli; //Длина строк и столбцов массива time
         string[] puti = new string[0]; // Массив, содержащий полученные пути
 
+        /// <summary>
+        /// Метод, записывающий путь файла, из которого берутся данные и в который записываются результаты
+        /// </summary>
+        /// <param name="readPath">Путь файла, из которого берутся данные</param>
+        /// <param name="savingPath">Путь файла, в который записываются результаты</param> 
         public Сommivoyageur(string readPath, string savingPath)
         {
             this.readPath = readPath;
             this.savingPath = savingPath;
         }
-
+        /// <summary>
+        /// Метод для поиска совпадений среди строки
+        /// </summary>
+        /// <param name="pi">Номер рассматриваемого пути</param>
+        /// <param name="j">Номер столбца в рассматриваемой строке</param>
+        /// <returns>Возвращает True, если совпадений нет и False, если есть</returns>
         bool PoiskSovpad(int pi, int j)
         {
             bool sch = true; //совпадений нет
@@ -35,7 +48,9 @@ namespace MathModTasks
             }
             return sch;
         }
-
+        /// <summary>
+        /// Метод, в котором вызывается поиск и подсчёт длин путей
+        /// </summary>
         void CalculatePaths()
         {
             for (int i = 0; i < uzli; i++) //точка отправления - передаем в метод для поиска путей
@@ -43,11 +58,16 @@ namespace MathModTasks
                 Array.Resize(ref puti, puti.Length + 1); //Увеличение размера массива путей
                 Array.Resize(ref f, f.Length + 1); //Увеличение размера массива длины путей
                 puti[puti.Length - 1] = $"{i + 1}"; //Запись в начало пути стартового элемента
-                puti = Schet(puti.Length - 1, i); //Добавление нового пути
+                puti = Schet(puti.Length - 1, i); // Добавление нового пути
             }
 
         }
-
+        /// <summary>
+        /// Основной вычислительный метод, в котором ведётся подсчёт длин путей и добавление их пунктов и длин в массивы
+        /// </summary>
+        /// <param name="pi">Номер рассматриваемого пути</param>
+        /// <param name="i1">Номер рассматриваемой строки</param>
+        /// <returns>Возвращает изменённый массив путей</returns>
         string[] Schet(int pi, int i1)
         {
             int min = time[i1, 0], mi2 = 0;
@@ -57,7 +77,7 @@ namespace MathModTasks
                 {
                     if (time[i1, j] != 0) 
                     {
-                        if (PoiskSovpad(pi, j + 1)) //Метод поиска совпадений в рассматриваемом пути, возвращает false, если в пути этот узел уже использовался
+                        if (PoiskSovpad(pi, j + 1))
                         {
                             min = time[i1, j]; //Первый элемент строки, не встречавшийся до этого в пути, берётся за минимум
                             mi2 = j; //Запись индекса элемента
@@ -69,7 +89,7 @@ namespace MathModTasks
                 {
                     if (time[i1, j] != 0)
                     {
-                        if (PoiskSovpad(pi, j + 1)) //Проверяет на совпадения в пути
+                        if (PoiskSovpad(pi, j + 1)) 
                         {
                             if (min > time[i1, j] || (min == time[i1, j] && j == mi2)) //Если элемент меньше минимума или равен ему и не является им же, то он является новым минимумом и его индекс записывается
                             {
@@ -117,7 +137,9 @@ namespace MathModTasks
             puti = Schet(pi, mi2);
             return puti;
         }
-
+        /// <summary>
+        /// Основной метод, в котором читаются данные из файла, вызывается вычисляющий метод, и результаты записываются в файл
+        /// </summary>
         public void Calculate()
         {
             ReadSaveData.ReadData(readPath, ref time);
