@@ -72,7 +72,7 @@ namespace MathModTasks
         {
             if (mg.CountNotNullElement != m + n - 1)
             {
-                FindMin(1);
+                FindMin();
                 while (true)
                 {
                     if (mainData[minData[1], minData[2]].Delivery == 0)
@@ -81,7 +81,7 @@ namespace MathModTasks
                         mg.CountNotNullElement++;
                         break;
                     }
-                    else FindMin(1);
+                    else FindMin();
                 }
             }
         }
@@ -246,8 +246,11 @@ namespace MathModTasks
             }
             message.Add(new string[] {"Оптимальная стоимость", summ.ToString() });
             ReadSaveData.WriteToFile("TransportSolution.csv", message);
-        }        
-        void FindMin(int k)
+        }
+        /// <summary>
+        /// Находит минимальный элемент в свойстве "затраты на перевозку" основной матрицы
+        /// </summary>
+        void FindMin()
         {
             int min = mainData[0, 0].Value;
             minData = new int[3];
