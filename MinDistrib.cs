@@ -38,7 +38,7 @@ namespace MathModTasks
         /// Осуществляет распределение в транспортной задаче по минимальному элементу
         /// </summary>
         /// <param name="distrMatric">Матрица для распределения поставок</param>
-        /// <returns></returns>
+        /// <returns>Количество поставок</returns>
         public int MinDistribute(ref Element[,] distrMatric)
         {            
             int[] min = FindMin();
@@ -75,7 +75,7 @@ namespace MathModTasks
         /// <summary>
         /// Нахождение минимального элемента с обнулением матрицы затрат (чтобы не использовалась при следующем нахождении минимума)
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Минимум и его индексы</returns>
         public int[] FindMin()
         {
             int min = mainData1[0, 0].Value;
@@ -107,7 +107,7 @@ namespace MathModTasks
         /// </summary>
         /// <param name="a">число</param>
         /// <param name="b">число</param>
-        /// <returns></returns>
+        /// <returns>Минмальное число среди a и b</returns>
         static int FindMinElement(int a, int b)
         {
             if (a > b) return b;

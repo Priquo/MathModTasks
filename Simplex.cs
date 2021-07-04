@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -54,7 +55,7 @@ namespace MathModTasks
         /// Вычисление симплекс-метода в массив
         /// </summary>
         /// <param name="result">Массив полученных значений Х</param>
-        /// <returns></returns>
+        /// <returns>Массив значений Х</returns>
         double[,] Calculate(double[] result)
         {
             int mainCol, mainRow; //ведущие столбец и строка
@@ -107,12 +108,12 @@ namespace MathModTasks
                     Console.Write(table_result[i, j] + "\t");
                 Console.WriteLine();
             }
-            ReadSaveData.WriteToFile(savePath, result);
+            WriteToFile(savePath, result);
         }
         /// <summary>
-        /// Осуществляет проверку строки оценок симплекс-таблицы на наличие положительных значений. Если их нет, возвращает false.
+        /// Осуществляет проверку строки оценок симплекс-таблицы на наличие положительных значений.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Если положительных оценок, возвращает false.</returns>
         private bool IsItEnd()
         {
             bool flag = true;
@@ -131,7 +132,7 @@ namespace MathModTasks
         /// <summary>
         /// Находит разрешающий столбец симплекс-таблицы
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Индекс разрешающего столбца</returns>
         private int findMainCol()
         {
             int mainCol = 1;
@@ -146,7 +147,7 @@ namespace MathModTasks
         /// Находит разрешающую строку симплекс-таблицы
         /// </summary>
         /// <param name="mainCol">Разрешающий столбец симплекс-таблицы</param>
-        /// <returns></returns>
+        /// <returns>Индекс разрешающей строки</returns>
         private int findMainRow(int mainCol)
         {
             int mainRow = 0;
@@ -164,7 +165,22 @@ namespace MathModTasks
 
             return mainRow;
         }
+        /// <summary>
+        /// Запись результатов в файл для симплекс-метода
+        /// </summary>
+        /// <param name="path">Путь к файлу</param>
+        /// <param name="result">Массив с результатами</param>
+        public static void WriteToFile(string path, double[] result)
+        {
+            using (StreamWriter sw = new StreamWriter(path, false))
+            {
+                sw.WriteLine();
+                sw.WriteLine("Решение:");
+                sw.WriteLine("X[1] = " + result[0]);
+                sw.WriteLine("X[2] = " + result[1]);
+            }
 
+        }
 
     }
 }

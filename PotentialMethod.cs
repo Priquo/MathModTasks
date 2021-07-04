@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -37,7 +38,7 @@ namespace MathModTasks
         /// <param name="path">Путь к файлу с исходными данными</param>
         public PotentialMethod(string path)
         {
-            List<string[]> newdata = ReadSaveData.ReadData(path);
+            List<string[]> newdata = ReadData(path);
             n = newdata.Count - 1;
             m = newdata.First().Length - 1;
             whogive = new int[n];
@@ -244,7 +245,7 @@ namespace MathModTasks
                 message.Add(row);
             }
             message.Add(new string[] {"Оптимальная стоимость", summ.ToString() });
-            ReadSaveData.WriteToFile("TransportSolution.csv", message);
+            WriteToFile("TransportSolution.csv", message);
         }
         /// <summary>
         /// Находит минимальный элемент в свойстве "затраты на перевозку" основной матрицы
@@ -262,6 +263,53 @@ namespace MathModTasks
                         minData[1] = i;
                         minData[2] = j;
                     }
+        }
+        /// <summary>
+        /// Запись в CSV-файл по указанному пути элементов матрицы message через ";" (каждая строка - на новой строке)
+        /// </summary>
+        /// <param name="path">Путь для записи файла</param>
+        /// <param name="message">Коллекция строковых массивов сообщений для записи</param>
+        /// <remarks>Используется при решении транспортной задачи.</remarks>
+        static public void WriteToFile(string path, List<string[]> message)
+        {
+            using (StreamWriter sw = File.CreateText(path))
+            {
+                foreach (var text in message)
+                {
+                    foreach (var s in text)
+                    {
+                        sw.Write(s + ";");
+                    }
+                    sw.WriteLine();
+                }
+            }
+        }
+        /// <summary>
+        /// Чтение данных из CSV-файла по указанному пути
+        /// </summary>
+        /// <param name="path">Путь к файлу</param>
+        /// <returns></returns>
+        /// <remarks>Для чтения надо первую ячейку сделать НУЛЕМ! Остальные - как в таблице.</remarks>
+        static public List<string[]> ReadData(string path)
+        {
+            List<string[]> data = new List<string[]>();
+            try
+            {
+                using (StreamReader sr = new StreamReader(path, Encoding.UTF8, true))
+                {
+                    while (sr.EndOfStream != true)
+                    {
+                        string[] str = sr.ReadLine().Split(';');
+                        data.Add(str);
+                    }
+                }
+                return data;
+            }
+            catch (FileNotFoundException)
+            {
+                Console.WriteLine("Ошибка считывания данных!");
+                return data;
+            }
         }
     }
 }
