@@ -172,7 +172,7 @@ namespace MathModTasks
         /// <param name="result">Массив с результатами</param>
         public static void WriteToFile(string path, double[] result)
         {
-            using (StreamWriter sw = new StreamWriter(path, false))
+            using (StreamWriter sw = new StreamWriter(path, false, Encoding.UTF8))
             {
                 sw.WriteLine();
                 sw.WriteLine("Решение:");

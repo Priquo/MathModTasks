@@ -272,7 +272,7 @@ namespace MathModTasks
         /// <remarks>Используется при решении транспортной задачи.</remarks>
         static public void WriteToFile(string path, List<string[]> message)
         {
-            using (StreamWriter sw = File.CreateText(path))
+            using (StreamWriter sw = new StreamWriter(path, false, Encoding.UTF8))
             {
                 foreach (var text in message)
                 {
